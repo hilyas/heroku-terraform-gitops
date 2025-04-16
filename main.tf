@@ -63,7 +63,7 @@ resource "heroku_build" "app" {
 
 # Configure dyno formation for the app
 resource "heroku_formation" "web" {
-  count = var.github_repo != null ? 1 : 0
+  count = var.github_repo != null && length(heroku_build.app) > 0 ? 1 : 0
 
   app_id   = heroku_app.app.id
   type     = "web"
