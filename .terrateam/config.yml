@@ -1,0 +1,17 @@
+# Automatically run terraform apply when a pull request is merged
+when_modified:
+  autoapply: true
+
+# Configure Google Cloud Storage for state backend
+workflows:
+  - tag_query: ""
+    plan:
+      - type: use_gcp_credentials
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+      - type: init
+      - type: plan
+    apply:
+      - type: use_gcp_credentials
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+      - type: init
+      - type: apply
