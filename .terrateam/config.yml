@@ -8,14 +8,14 @@ workflows:
     plan:
       - type: oidc
         provider: gcp
-        service_account: "terrateam-state@${GCP_PROJECT_ID}.iam.gserviceaccount.com"
-        workload_identity_provider: "projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+        service_account: "terrateam-state@playground-20231012.iam.gserviceaccount.com"
+        workload_identity_provider: "projects/849496875603/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
       - type: init
       - type: plan
     apply:
       - type: oidc
         provider: gcp
-        service_account: "terrateam-state@${GCP_PROJECT_ID}.iam.gserviceaccount.com"
-        workload_identity_provider: "projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+        service_account: "terrateam-state@playground-20231012.iam.gserviceaccount.com"
+        workload_identity_provider: "projects/849496875603/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
       - type: init
       - type: apply
