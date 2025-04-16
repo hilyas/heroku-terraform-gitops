@@ -33,7 +33,7 @@ resource "heroku_app" "app" {
 # Postgres database add-on
 resource "heroku_addon" "database" {
   app_id = heroku_app.app.id
-  plan   = "heroku-postgresql:mini"
+  plan   = "heroku-postgresql:essential-0"
 }
 
 # Variables for deployment
