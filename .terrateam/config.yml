@@ -2,16 +2,20 @@
 when_modified:
   autoapply: true
 
-# Configure Google Cloud Storage for state backend
+# Use environment variables for GCP authentication
 workflows:
   - tag_query: ""
     plan:
-      - type: use_gcp_credentials
-        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+      - type: oidc
+        provider: gcp
+        service_account: "terrateam-state@${GCP_PROJECT_ID}.iam.gserviceaccount.com"
+        workload_identity_provider: "projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
       - type: init
       - type: plan
     apply:
-      - type: use_gcp_credentials
-        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+      - type: oidc
+        provider: gcp
+        service_account: "terrateam-state@${GCP_PROJECT_ID}.iam.gserviceaccount.com"
+        workload_identity_provider: "projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
       - type: init
       - type: apply
