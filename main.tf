@@ -113,3 +113,29 @@ output "database_url" {
   description = "Database config variable ID"
   sensitive   = true
 }
+
+# Variable for Redis
+variable "enable_redis" {
+  description = "Enable Redis add-on"
+  type        = bool
+  default     = false
+}
+
+# Redis add-on
+resource "heroku_addon" "redis" {
+  count  = var.enable_redis ? 1 : 0
+  app_id = heroku_app.app.id
+  plan   = "heroku-redis:hobby-dev"
+
+  # Redis can take some time to provision, so we add a lifecycle block
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# Output Redis URL
+output "redis_url" {
+  value       = var.enable_redis ? heroku_addon.redis[0].config_vars_id : null
+  description = "Redis config variable ID"
+  sensitive   = true
+}

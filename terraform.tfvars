@@ -4,3 +4,6 @@ region   = "us"
 heroku_team   = "SRE"
 github_repo   = "https://github.com/hilyas/heroku-terraform-gitops.git"
 github_branch = "main"
+
+# Enable Redis add-on
+enable_redis = true
