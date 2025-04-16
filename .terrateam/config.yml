@@ -6,16 +6,16 @@ when_modified:
 workflows:
   - tag_query: ""
     plan:
-      - type: env
-        name: GOOGLE_CREDENTIALS
-        cmd: ["echo", "${{ secrets.GCP_CREDENTIALS }}"]
-        sensitive: true
+      - type: oidc
+        provider: gcp
+        service_account: "terrateam-state@${GCP_PROJECT_ID}.iam.gserviceaccount.com"
+        workload_identity_provider: "projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
       - type: init
       - type: plan
     apply:
-      - type: env
-        name: GOOGLE_CREDENTIALS
-        cmd: ["echo", "${{ secrets.GCP_CREDENTIALS }}"]
-        sensitive: true
+      - type: oidc
+        provider: gcp
+        service_account: "terrateam-state@${GCP_PROJECT_ID}.iam.gserviceaccount.com"
+        workload_identity_provider: "projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
       - type: init
       - type: apply
