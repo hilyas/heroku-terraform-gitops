@@ -6,12 +6,14 @@ when_modified:
 workflows:
   - tag_query: ""
     plan:
-      - type: use_gcp_credentials
+      - type: credentials
+        provider: gcp
         credentials_json: ${{ secrets.GCP_CREDENTIALS }}
       - type: init
       - type: plan
     apply:
-      - type: use_gcp_credentials
+      - type: credentials
+        provider: gcp
         credentials_json: ${{ secrets.GCP_CREDENTIALS }}
       - type: init
       - type: apply
