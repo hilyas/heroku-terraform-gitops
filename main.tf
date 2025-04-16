@@ -100,16 +100,3 @@ resource "heroku_addon" "metrics" {
   app_id = heroku_app.app.id
   plan   = "heroku-metrics:hobby-dev"
 }
-
-# Output the app URL
-output "app_url" {
-  value       = heroku_app.app.web_url
-  description = "Application URL"
-}
-
-# Output the database URL
-output "database_url" {
-  value       = heroku_addon.database.config_vars_id
-  description = "Database config variable ID"
-  sensitive   = true
-}
