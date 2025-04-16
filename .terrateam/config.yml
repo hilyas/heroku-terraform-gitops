@@ -2,16 +2,20 @@
 when_modified:
   autoapply: true
 
-# Configure Google Cloud Storage for state backend
+# Use environment variables for GCP authentication
 workflows:
   - tag_query: ""
     plan:
-      - type: gcp
-        credentials: ${{ secrets.GCP_CREDENTIALS }}
+      - type: env
+        name: GOOGLE_CREDENTIALS
+        cmd: ["echo", "${{ secrets.GCP_CREDENTIALS }}"]
+        sensitive: true
       - type: init
       - type: plan
     apply:
-      - type: gcp
-        credentials: ${{ secrets.GCP_CREDENTIALS }}
+      - type: env
+        name: GOOGLE_CREDENTIALS
+        cmd: ["echo", "${{ secrets.GCP_CREDENTIALS }}"]
+        sensitive: true
       - type: init
       - type: apply
